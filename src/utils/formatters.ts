@@ -13,7 +13,7 @@ export const formatDateTime = (dateString: string): string => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat('id-ID', {
     day: '2-digit',
-    month: 'long',
+    month: 'short',
     year: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
@@ -31,7 +31,7 @@ export const formatTime = (dateString: string): string => {
 export const getBookingStatusText = (status: BookingStatus): string => {
   switch (status) {
     case BookingStatus.Pending:
-      return 'Pending';
+      return 'Menunggu Review';
     case BookingStatus.Approved:
       return 'Disetujui';
     case BookingStatus.Rejected:
@@ -44,23 +44,26 @@ export const getBookingStatusText = (status: BookingStatus): string => {
 export const getBookingStatusColor = (status: BookingStatus): string => {
   switch (status) {
     case BookingStatus.Pending:
-      return 'bg-yellow-100 text-yellow-800';
+      return 'bg-amber-50 text-amber-700 border-amber-200/80';
     case BookingStatus.Approved:
-      return 'bg-green-100 text-green-800';
+      return 'bg-emerald-50 text-emerald-700 border-emerald-200/80';
     case BookingStatus.Rejected:
-      return 'bg-red-100 text-red-800';
+      return 'bg-rose-50 text-rose-700 border-rose-200/80';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-slate-50 text-slate-700 border-slate-200/80';
   }
 };
 
 export const getRoomStatusColor = (status: string): string => {
   switch (status.toLowerCase()) {
     case 'tersedia':
-      return 'bg-green-100 text-green-800';
+      return 'bg-emerald-50 text-emerald-700 border-emerald-200/80';
+    case 'terpakai':
     case 'tidak tersedia':
-      return 'bg-red-100 text-red-800';
+      return 'bg-rose-50 text-rose-700 border-rose-200/80';
+    case 'maintenance':
+      return 'bg-amber-50 text-amber-700 border-amber-200/80';
     default:
-      return 'bg-gray-100 text-gray-800';
+      return 'bg-slate-50 text-slate-700 border-slate-200/80';
   }
 };

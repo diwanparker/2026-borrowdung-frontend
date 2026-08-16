@@ -7,13 +7,20 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-slate-50">
       <Navbar />
-      <main className="container mx-auto px-4 py-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
         {children}
       </main>
-      <footer className="bg-gray-800 text-white text-center py-4 mt-auto">
-        <p>&copy; 2026 Borrowdung - PENS. All rights reserved.</p>
+      <footer className="border-t border-slate-200/80 bg-white py-6 text-center text-xs text-slate-500">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <p className="flex items-center gap-1">
+            <span className="font-semibold text-slate-700">Borrowdung</span> &copy; 2026 — Politeknik Elektronika Negeri Surabaya (PENS)
+          </p>
+          <p className="text-slate-400">
+            Project-Based Learning (PdBL) · Enterprise Room Booking System
+          </p>
+        </div>
       </footer>
     </div>
   );
