@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { roomAPI } from '../services/api';
 import type { Room, CreateRoomRequest } from '../types';
 import Loading from '../components/Loading';
-import { getRoomStatusColor } from '../utils/formatters';
 import { useAuth } from '../contexts/AuthContext';
 
 const Rooms = () => {
@@ -50,9 +49,10 @@ const Rooms = () => {
       setShowModal(false);
       resetForm();
       fetchRooms();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error saving room:', error);
-      alert(error.response?.data?.message || 'Gagal menyimpan ruangan');
+      const message = (error as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(message || 'Gagal menyimpan ruangan');
     }
   };
 

@@ -9,7 +9,6 @@ import { useAuth } from '../contexts/AuthContext';
 const Bookings = () => {
   const { user } = useAuth();
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [rooms, setRooms] = useState<Room[]>([]);
   const [availableRooms, setAvailableRooms] = useState<Room[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -32,12 +31,12 @@ const Bookings = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const [bookingsRes, roomsRes] = await Promise.all([
-        bookingAPI.getAll({ search, status: statusFilter === '' ? undefined : statusFilter, pageSize: 100 }),
-        roomAPI.getAll({ pageSize: 100 }),
-      ]);
+      const bookingsRes = await bookingAPI.getAll({
+        search,
+        status: statusFilter === '' ? undefined : statusFilter,
+        pageSize: 100,
+      });
       setBookings(bookingsRes.data);
-      setRooms(roomsRes.data);
     } catch (error) {
       console.error('Error fetching data:', error);
       alert('Gagal memuat data');
@@ -84,9 +83,10 @@ const Bookings = () => {
       setShowModal(false);
       resetForm();
       fetchData();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error creating booking:', error);
-      alert(error.response?.data?.message || 'Gagal membuat booking');
+      const message = (error as { response?: { data?: { message?: string } } })?.response?.data?.message;
+      alert(message || 'Gagal membuat booking');
     }
   };
 

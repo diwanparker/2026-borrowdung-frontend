@@ -60,8 +60,9 @@ const Register = () => {
 
       alert('Registrasi berhasil! Silakan login dengan akun Anda.');
       navigate('/login');
-    } catch (err: any) {
-      setError(err.message || 'Terjadi kesalahan saat registrasi');
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Terjadi kesalahan saat registrasi';
+      setError(msg);
       console.error('Register error:', err);
     } finally {
       setLoading(false);
